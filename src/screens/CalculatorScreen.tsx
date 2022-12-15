@@ -106,6 +106,31 @@ export const CalculatorScreen = () => {
     lastOperator.current = Operators.sum;
   };
 
+  const onCalculate = () => {
+    const num1 = Number(number);
+    const num2 = Number(prevNumber);
+
+    switch (lastOperator.current) {
+      case Operators.divide:
+        setNumber(`${num2 / num1}`);
+        break;
+      case Operators.multiply:
+        setNumber(`${num2 * num1}`);
+        break;
+      case Operators.subtract:
+        setNumber(`${num2 - num1}`);
+        break;
+      case Operators.sum:
+        setNumber(`${num1 + num2}`);
+        break;
+
+      default:
+        break;
+    }
+
+    setPrevNumber('0');
+  };
+
   return (
     <View style={styles.calculatorContainer}>
       {prevNumber !== '0' && (
@@ -137,9 +162,16 @@ export const CalculatorScreen = () => {
       </View>
 
       <View style={styles.row}>
+        <ButtonCalc text="1" onClick={addNumber} />
+        <ButtonCalc text="2" onClick={addNumber} />
+        <ButtonCalc text="3" onClick={addNumber} />
+        <ButtonCalc text="+" color="orange" onClick={onSum} />
+      </View>
+
+      <View style={styles.row}>
         <ButtonCalc text="0" widthFull onClick={addNumber} />
         <ButtonCalc text="." onClick={addNumber} />
-        <ButtonCalc text="=" color="orange" onClick={onSum} />
+        <ButtonCalc text="=" color="orange" onClick={onCalculate} />
       </View>
     </View>
   );
